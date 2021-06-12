@@ -10,7 +10,7 @@ const addTodoReducer = createSlice({
       state.push(action.payload);
       return state;
     },
-    removeTodo: (state, action) => {
+    removeTodos: (state, action) => {
       return state.filter((item) => item.id !== action.payload);
     },
     updateTodos: (state, action) => {
@@ -38,6 +38,6 @@ const addTodoReducer = createSlice({
   },
 });
 
-export const { addTodos, removeTodo, updateTodos, completeTodos } =
+export const { addTodos, removeTodos, updateTodos, completeTodos } =
   addTodoReducer.actions;
 export const reducer = addTodoReducer.reducer;

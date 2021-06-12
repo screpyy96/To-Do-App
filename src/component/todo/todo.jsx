@@ -18,35 +18,35 @@ const mapDispatchToProps = (dispatch) => {
 const Todo = (props) => {
   console.log("props", props);
 
-  const [value, setValue] = useState("");
+  const [todo, setTodo] = useState("");
 
-  const addTodo = () => {
-    if (value === "") {
+  const addList = () => {
+    if (todo === "") {
       alert("input empty");
     } else {
       props.addTodo({
         id: Math.floor(Math.random() * 1000),
         completed: false,
-        value,
+        item: todo,
       });
     }
-    setValue("");
+    setTodo("");
   };
 
   const handleChange = (e) => {
-    setValue(e.target.value);
+    setTodo(e.target.value);
   };
 
   return (
     <div>
-      <input type="text" onChange={(e) => handleChange(e)} value={value} />
-      <button type="submit" onClick={() => addTodo()}>
+      <input type="text" onChange={(e) => handleChange(e)} value={todo} />
+      <button type="submit" onClick={() => addList()}>
         Add
       </button>
       <ul>
         {props.todos.length > 0 &&
           props.todos.map((item) => {
-            return <li key={item.id}>{item.value}</li>;
+            return <li key={item.id}>{item.item}</li>;
           })}
       </ul>
     </div>
