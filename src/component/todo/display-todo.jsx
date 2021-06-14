@@ -1,12 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
-import {
-  addTodos,
-  completeTodos,
-  removeTodos,
-  updateTodos,
-} from "../../store/reducer";
+import { completeTodos, removeTodos, updateTodos } from "../../store/reducer";
 import TodoItem from "./todo-item";
 
 const mapStateToProps = (state) => {
@@ -17,13 +12,11 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTodo: (obj) => dispatch(addTodos(obj)),
     removeTodo: (id) => dispatch(removeTodos(id)),
     updateTodo: (obj) => dispatch(updateTodos(obj)),
     completeTodo: (id) => dispatch(completeTodos(id)),
   };
 };
-
 const DisplayTodo = (props) => {
   const [sort, setSort] = useState("active");
 
@@ -37,25 +30,9 @@ const DisplayTodo = (props) => {
         </div>
         <ul>
           {props.todos.length > 0 && sort === "active"
-            ? props.todos.map(({ id, item }) => {
-                return (
-                  item.completed === false && (
-                    <TodoItem
-                      key={id}
-                      item={item}
-                      removeTodo={props.removeTodo}
-                      updateTodo={props.updateTodo}
-                      completeTodo={props.completeTodo}
-                    />
-                  )
-                );
-              })
-            : null}
-          {/* completed items */}
-          {props.todos.length > 0 && sort === "completed"
             ? props.todos.map((item) => {
                 return (
-                  item.completed === true && (
+                  item.completed === false && (
                     <TodoItem
                       key={item.id}
                       item={item}
@@ -67,6 +44,22 @@ const DisplayTodo = (props) => {
                 );
               })
             : null}
+
+          {/* for completed items */}
+          {props.todos.length > 0 && sort === "completed"
+            ? props.todos.map((item) => {
+                return (
+                  item.completed === true && (
+                    <TodoItem
+                      key={item.id}
+                      item={item}
+                      removeTodo={props.removeTodo}
+                    />
+                  )
+                );
+              })
+            : null}
+
           {/* for all items */}
           {props.todos.length > 0 && sort === "all"
             ? props.todos.map((item) => {

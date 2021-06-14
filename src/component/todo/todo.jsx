@@ -1,3 +1,4 @@
+import { nanoid } from "@reduxjs/toolkit";
 import React from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
@@ -22,12 +23,13 @@ const Todo = (props) => {
 
   const addList = () => {
     if (todo === "") {
-      alert("input empty");
+      alert("add something");
     } else {
       props.addTodo({
-        id: Math.floor(Math.random() * 1000),
-        completed: false,
         item: todo,
+        id: nanoid(),
+        // id: Math.floor(Math.random() * 1000),
+        completed: false,
       });
     }
     setTodo("");
@@ -43,12 +45,6 @@ const Todo = (props) => {
       <button type="submit" onClick={() => addList()}>
         Add
       </button>
-      <ul>
-        {props.todos.length > 0 &&
-          props.todos.map((item) => {
-            return <li key={item.id}>{item.item}</li>;
-          })}
-      </ul>
     </div>
   );
 };
